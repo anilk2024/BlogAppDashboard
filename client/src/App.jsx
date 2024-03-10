@@ -6,6 +6,7 @@ import SignUp from './pages/SignUp';
 import Dashbord from './pages/Dashbord';
 import Projects from './pages/Projects';
 import Header from './compnents/Header';
+import  Footer  from './compnents/Footer';
 function App() {
   return (
     <BrowserRouter>
@@ -18,6 +19,7 @@ function App() {
         <Route path='/dashboard' element={<Dashbord />} />
         <Route path='/projects' element={<Projects />} />
       </Routes>
+      <Footer/>
     </BrowserRouter>
   );
 }
