@@ -14,7 +14,7 @@ export const signup = async (req, res, next) => {
     email === '' ||
     password === ''
   ) {
-   return next(errorHandler(400, 'All fields are required'));
+    return next(errorHandler(400, 'All fields are required'));
   }
 
   const hashedPassword = bcryptjs.hashSync(password, 10);
@@ -43,7 +43,7 @@ export const signin = async (req, res, next) => {
     email === '' ||
     password === ''
   ) {
-   return next(errorHandler(400, 'All fields are required'));
+    return next(errorHandler(400, 'All fields are required'));
   }
   try {
     const validUser = await User.findOne({ email });
@@ -54,17 +54,17 @@ export const signin = async (req, res, next) => {
     if (!validPassword) {
       return next(errorHandler(401, 'Invalid username or password'));
     }
-    const{password:pass,...rest}=validUser._doc;
+    const { password: pass, ...rest } = validUser._doc;
     const token = jwt.sign(
       {
         id: validUser._id,
         username: validUser.username
       }, process.env.JWT_SECRET,
-      {expiresIn: '60d'}
+      { expiresIn: '60d' }
     );
     res.status(200).cookie('access_token', token, {
       httponly: true
-    }).json({ message: 'Signin Successfull' })
+    }).json(rest)
 
   } catch (error) {
     next(error);
